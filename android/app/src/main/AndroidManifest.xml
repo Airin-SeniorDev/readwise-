@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.readwiseplus.app">  <!-- ✅ เพิ่มตรงนี้แล้ว -->
+    package="com.readwiseplus.app">
+
+    <!-- ✅ ขอสิทธิ์ใช้กล้อง -->
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:label="readwise"
