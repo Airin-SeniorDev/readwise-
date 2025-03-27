@@ -30,6 +30,11 @@ flutterfire configure
 dart pub global activate flutterfire_cli
 แล้วค่อยรัน flutterfire configure
 จะสร้างไฟล์ lib/firebase_options.dart ให้คุณอัตโนมัติ
+
 Package carmara
 flutter pub add google_mlkit_text_recognition
 flutter pub add image_picker
+
+รันคำสั่งนี้เพื่อติดตั้ง TTS:
+flutter pub add flutter_tts
+
