@@ -3,7 +3,7 @@
 
     <!-- ✅ ขอสิทธิ์ใช้กล้อง -->
     <uses-permission android:name="android.permission.CAMERA" />
-
+    
     <application
         android:label="readwise"
         android:name="${applicationName}"

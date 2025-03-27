@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class OCRScreen extends StatefulWidget {
   @override
@@ -11,6 +12,7 @@ class OCRScreen extends StatefulWidget {
 class _OCRScreenState extends State<OCRScreen> {
   File? _image;
   String _extractedText = "";
+  final FlutterTts flutterTts = FlutterTts();
 
   Future<void> pickImageAndScanText() async {
     final picker = ImagePicker();
@@ -38,6 +40,12 @@ class _OCRScreenState extends State<OCRScreen> {
     }
   }
 
+  Future<void> speakText(String text) async {
+    await flutterTts.setLanguage("th-TH"); // หรือ "en-US"
+    await flutterTts.setPitch(1.0);
+    await flutterTts.speak(text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,14 +58,26 @@ class _OCRScreenState extends State<OCRScreen> {
               onPressed: pickImageAndScanText,
               child: Text("📸 ถ่ายภาพเพื่อสแกนข้อความ"),
             ),
-            SizedBox(height: 20),
-            _image != null ? Image.file(_image!, height: 200) : Container(),
-            SizedBox(height: 20),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Text(_extractedText, style: TextStyle(fontSize: 16)),
+            SizedBox(height: 16),
+            _image != null
+                ? Image.file(_image!, height: 200)
+                : Text("ยังไม่ได้เลือกรูปภาพ"),
+            SizedBox(height: 16),
+            if (_extractedText.isNotEmpty)
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Text(_extractedText, style: TextStyle(fontSize: 16)),
+                      SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: () => speakText(_extractedText),
+                        child: Text("🔊 ฟังข้อความที่สแกน"),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
           ],
         ),
       ),
